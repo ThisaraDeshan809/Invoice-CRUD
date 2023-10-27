@@ -1,5 +1,6 @@
 <!-- laravel style -->
 <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- beautify ignore:start -->
 @if ($configData['hasCustomizer'])
   <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->

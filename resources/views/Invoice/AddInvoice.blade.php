@@ -141,7 +141,7 @@
           @csrf
           <input type="hidden" name="invoice_id" id="invoice_id">
           <div data-repeater-list="group-a">
-            <div data-repeater-item>
+            <div data-repeater-item class="repeter-item">
               <div class="row">
                 <div class="mb-3 col-lg-6 col-xl-2 col-12 mb-0">
                   <label class="form-label" for="form-repeater-1-3">Gender</label>
@@ -290,15 +290,12 @@
 
 <script>
 $(document).ready(function () {
-  $('#submitData').click(function(e) {
-        e.preventDefault();
+  $('#submitData').click(function (e) {
+    e.preventDefault();
 
-        var formDataObj = new FormData();
+    var formDataObj = new FormData();
+    // var invoiceId = 1;
 
-
-        var invoiceId = $('#invoice_Id').val();
-
-        // Iterate through the form repeater items
     // Iterate through the form repeater items
     $('[data-repeater-item]').each(function (index, item) {
       var product_id = $(item).find('[name="product_id"]').val();
@@ -311,32 +308,29 @@ $(document).ready(function () {
       formDataObj.append('items[' + index + '][price]', price);
     });
 
-        // Append additional data
-        formDataObj.append('invoice_id', "gg");
-        formDataObj.append('date', $('#date').val());
-        formDataObj.append('due_date', $('#dueDate').val());
-        formDataObj.append('user_id', $('#invoiceTo').val());
-        formDataObj.append('address', $('#invoiceToAddress').val());
-        formDataObj.append('email', $('#invoiceToEmail').val());
-        formDataObj.append('total_price', $('#totalSum2').val());
-        formDataObj.append('description', $('#description').val());
-        formDataObj.append('paymentType', $('#paymentType').val());
+    // Append additional data
+    formDataObj.append('product_id', $('#product_id').val());
+    // formDataObj.append('invoice_id', invoiceId);
+    formDataObj.append('quantity', $('#Quantity').val());
+    formDataObj.append('price', $('#price').val());
+    formDataObj.append('date', $('#date').val());
+    formDataObj.append('due_date', $('#dueDate').val());
+    formDataObj.append('user_id', $('#invoiceTo').val());
+    formDataObj.append('address', $('#invoiceToAddress').val());
+    formDataObj.append('email', $('#invoiceToEmail').val());
+    formDataObj.append('total_price', $('#totalSum2').val());
+    formDataObj.append('description', $('#description').val());
+    formDataObj.append('paymentType', $('#paymentType').val());
 
-        console.log(formDataObj);
-
-  // console.log(formDataObj);
-
-    // Send a POST request to save data in the Invoices table
+    // Now you can use formDataObj to send the data using AJAX
     $.ajax({
-      url: '{{ route('Invoices.store') }}', // Replace with your Laravel route
+      url: '{{ route('Invoices.store') }}',
       method: 'POST',
-      data: {
-        formDataObj
-      },
-      processData: false, // Prevent jQuery from processing data
-      contentType: false, // Prevent jQuery from setting content type
+      data: formDataObj,
+      contentType: false,
+      processData: false,
       headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include the CSRF token in the request headers
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       success: function (response) {
         // Handle the response from the server if needed
@@ -348,6 +342,7 @@ $(document).ready(function () {
     });
   });
 });
+
 </script>
 
 <!-- Offcanvas -->

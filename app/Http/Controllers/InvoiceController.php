@@ -12,7 +12,7 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
 
-      dd($request);
+      // dd($request);
 
       $AdditionalData = [
         'user_id' => $request->input('user_id'),
@@ -25,16 +25,18 @@ class InvoiceController extends Controller
         'email' => $request->input('email')
       ];
 
-      // $data2 = [];
+      $invoice =  Invoice::create($AdditionalData);
+
+      $invoice_id = $invoice->id;
 
       $FormData = [
         'product_id' => $request->input('product_id'),
-        'invoice_id' => $request->input('invoice_id'),
-        'quantity' => $request->input('Quantity'),
+        'invoice_id' => $invoice_id,
+        'quantity' => $request->input('quantity'),
         'price' => $request->input('price')
       ];
 
-      Invoice::create($AdditionalData);
+
 
       Item::create($FormData);
 

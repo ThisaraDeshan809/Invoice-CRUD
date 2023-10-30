@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\laravel_example\UserManagement;
-
+use App\Http\Controllers\PagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +20,14 @@ use App\Http\Controllers\laravel_example\UserManagement;
 $controller_path = 'App\Http\Controllers';
 
 // Main Page Route
-Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
-Route::get('/dashboard/analytics', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
-Route::get('/dashboard/crm', $controller_path . '\dashboard\Crm@index')->name('dashboard-crm');
+Route::get('/',[PagesController::class,'index'])->name('Index');
+Route::get('/AddInvoice',[PagesController::class,'AddInvoice'])->name('AddInvoice');
+Route::get('/EditInvoice/{id}',[PagesController::class,'EditInvoice'])->name('EditInvoice');
 Route::get('/dashboard/ecommerce', $controller_path . '\dashboard\Ecommerce@index')->name('dashboard-ecommerce');
+Route::post('/AddInvoice/new',[InvoiceController::class,'store'])->name('Invoices.store');
+Route::post('/UpdateInvoice/{id}',[InvoiceController::class,'update'])->name('Invoices.update');
+Route::get('/DeleteInvoice/{id}',[InvoiceController::class,'delete'])->name('Invoices.delete');
+Route::post('/AddItem',[ItemController::class,'store'])->name('Item.store');
 
 // locale
 Route::get('lang/{locale}', $controller_path . '\language\LanguageController@swap');

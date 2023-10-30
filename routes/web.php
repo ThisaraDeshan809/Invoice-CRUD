@@ -22,9 +22,11 @@ $controller_path = 'App\Http\Controllers';
 // Main Page Route
 Route::get('/',[PagesController::class,'index'])->name('Index');
 Route::get('/AddInvoice',[PagesController::class,'AddInvoice'])->name('AddInvoice');
-Route::get('/EditInvoice',[PagesController::class,'EditInvoice'])->name('EditInvoice');
+Route::get('/EditInvoice/{id}',[PagesController::class,'EditInvoice'])->name('EditInvoice');
 Route::get('/dashboard/ecommerce', $controller_path . '\dashboard\Ecommerce@index')->name('dashboard-ecommerce');
 Route::post('/AddInvoice/new',[InvoiceController::class,'store'])->name('Invoices.store');
+Route::post('/UpdateInvoice/{id}',[InvoiceController::class,'update'])->name('Invoices.update');
+Route::get('/DeleteInvoice/{id}',[InvoiceController::class,'delete'])->name('Invoices.delete');
 Route::post('/AddItem',[ItemController::class,'store'])->name('Item.store');
 
 // locale

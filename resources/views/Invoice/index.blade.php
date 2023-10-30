@@ -10,12 +10,10 @@
 
 @section('vendor-script')
 <script src="{{asset('assets/vendor/libs/moment/moment.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
-
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/app-invoice-list.js')}}"></script>
+
 @endsection
 
 @section('content')
@@ -29,32 +27,36 @@
     <table class="invoice-list-table table border-top">
       <thead>
         <tr>
-          <th></th>
           <th>#ID</th>
-          <th><i class='ti ti-trending-up'></i></th>
-          <th>Client</th>
+          <th>To</th>
+          <th>Address</th>
+          <th>Description</th>
+          <th>Payment Type</th>
+          <th>Date</th>
+          <th>Due Date</th>
           <th>Total</th>
           <th class="text-truncate">Issued Date</th>
-          <th>Balance</th>
-          <th>Invoice Status</th>
           <th class="cell-fit">Actions</th>
         </tr>
       </thead>
       <tbody>
+        @foreach ( $invoices as $invoice )
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{$invoice->id}}</td>
+          <td>{{$invoice->email}}</td>
+          <td>{{$invoice->address}}</td>
+          <td>{{$invoice->description}}</td>
+          <td>{{$invoice->paymentType}}</td>
+          <td>{{$invoice->date}}</td>
+          <td>{{$invoice->due_date}}</td>
+          <td>{{$invoice->total_price}}</td>
+          <td>{{$invoice->created_at}}</td>
           <td>
-            <a href="{{route('EditInvoice')}}" class="btn btn-success btn-sm m-2">Edit Invoice</a>
-            <a href="" class="btn btn-danger btn-sm m-2">Delete Invoice</a>
+            <a href="{{route('EditInvoice', $invoice->id)}}" class="btn btn-success btn-sm m-2">Edit Invoice</a>
+            <a href="{{route('Invoices.delete', $invoice->id)}}" class="btn btn-danger btn-sm m-2">Delete Invoice</a>
           </td>
         </tr>
+        @endforeach
       </tbody>
     </table>
   </div>

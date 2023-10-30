@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,7 +12,10 @@ class PagesController extends Controller
 {
     public function index()
     {
-      return view('Invoice.index');
+
+      $invoices = Invoice::all();
+
+      return view('Invoice.index' , compact('invoices'));
     }
 
     public function AddInvoice()
@@ -23,8 +27,13 @@ class PagesController extends Controller
       return view('Invoice.AddInvoice' , compact('users' , 'products'));
     }
 
-    public function EditInvoice()
+    public function EditInvoice($id)
     {
-      return view('Invoice.EditInvoice');
+
+      $users = User::all();
+      $products = Product::all();
+      $invoice = Invoice::findOrFail($id);
+
+      return view('Invoice.EditInvoice', compact('users' , 'products','invoice'));
     }
 }
